@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">KABARAK UNIVERSITY ELECTION BOARD</string>
+    <string name="log_out">Log out</string>
+    <string name="preferred_candidate">Preferred Candidate</string>
+    <string name="BALLOT">Category</string>
+    <string name="pick_candidate_singular">You have not picked a candidate for</string>
+    <string name="postion">Position</string>
+</resources>
