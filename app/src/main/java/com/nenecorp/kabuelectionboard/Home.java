@@ -7,10 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -274,19 +275,41 @@ public class Home extends AppCompatActivity {
                         }
 
                     }
-                    Date today = new Date();
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(today);
-                    int year = calendar.get(Calendar.YEAR);
-
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, EEE");
-                    String d = dateFormat.format(today);
+                    Calendar tDate = Calendar.getInstance();
+                    String year = "" + tDate.get(Calendar.YEAR);
+                    Calendar eDate = Calendar.getInstance();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, EEE - hh:mm:ss");
+                    Log.i(TAG, "onDataChange: " + getElectionDate() + " - " + getElectionTime());
+                    Log.i(TAG, "onDataChange: " + dateFormat.format(tDate.getTime()));
                     try {
+                        eDate.setTime(dateFormat.parse(getElectionDate() + " - " + getElectionTime()));
+                        Calendar dDate = Calendar.getInstance();
+                        dDate.add(Calendar.HOUR, Integer.parseInt(getElectionDuration()));
+                        if (tDate.before(dDate) && getElectionYear().equals(year) && tDate.get(Calendar.DAY_OF_MONTH) == eDate.get(Calendar.DAY_OF_MONTH)) {
+                            DateFormat dT = new SimpleDateFormat("hh:mm a");
+                            setDeadline_Start(dT.format(tDate.getTime()));
+                            setDeadLine_Stop(dT.format(dDate.getTime()));
+                            dataSnapshot.child(getElectionYear()).child(getElectionId()).child(KUEB.CONTRACT.election_Status).getRef().setValue(KUEB.CONTRACT.ACTIVE);
+                            setDateTime(getElectionYear(), getElectionDate(), getElectionTime(), getElectionDuration(), on_ELECTION_TIME);
+                        } else if (tDate.before(eDate)) {
+                            Log.i(TAG, "onDataChange: " + true);
+                            mHandler = new Handler();
+                            mActive = true;
+                            mHandler.post(mRunnable);
+                            setDateTime(getElectionYear(), getElectionDate(), getElectionTime(), getElectionDuration(), on_ELECTION_DATE);
+                        } else if (tDate.after(dDate)) {
+                            Log.i(TAG, "onDataChange: after deadline");
+                            dataSnapshot.child(getElectionYear()).child(getElectionId()).child(KUEB.CONTRACT.election_Status).getRef().setValue(KUEB.CONTRACT.FINISHED);
+                            refreshActivity();
+                        } else {
+                            loadElection(ballots, elect, LOAD_ELECTION);
+                        }
+                       /*
                         Date electiondate = dateFormat.parse(getElectionDate());
                         if (getElectionYear().equals("" + year) && d.equals(getElectionDate())) {
-                            int hourOfDay = calendar.getTime().getHours();
+                            int hourOfDay = tDate.get(Calendar.HOUR_OF_DAY);
                             String hour = String.format("%02d", hourOfDay);
-                            int minute = calendar.getTime().getMinutes();
+                            int minute = tDate.get(Calendar.MINUTE);
                             String min = String.format("%02d", minute);
                             String time = hour + ":" + min + ":00";
                             DateFormat format = new SimpleDateFormat("hh:mm:ss");
@@ -314,7 +337,7 @@ public class Home extends AppCompatActivity {
                                     mActive = true;
                                     mHandler.post(mRunnable);
                                     setDateTime(getElectionYear(), getElectionDate(), getElectionTime(), getElectionDuration(), on_ELECTION_DATE);
-                                } else if (current.after(deadLine)) {
+                                } else if (deadLine.before(current)) {
                                     Log.i(TAG, "onDataChange: after deadline");
                                     dataSnapshot.child(getElectionYear()).child(getElectionId()).child(KUEB.CONTRACT.election_Status).getRef().setValue(KUEB.CONTRACT.FINISHED);
                                     refreshActivity();
@@ -323,12 +346,13 @@ public class Home extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                        } else if (electiondate.before(today)) {
+                        } else if (electiondate.before(tDate)) {
                             dataSnapshot.child(getElectionYear()).child(getElectionId()).child(KUEB.CONTRACT.election_Status).getRef().setValue(KUEB.CONTRACT.FINISHED);
                             refreshActivity();
                         } else {
                             loadElection(ballots, elect, LOAD_ELECTION);
                         }
+                      */
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

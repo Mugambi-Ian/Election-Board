@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             tools:replace="android:authorities"
             android:authorities="${applicationId}.com.vansuita.pickimage.provider">
             <meta-data

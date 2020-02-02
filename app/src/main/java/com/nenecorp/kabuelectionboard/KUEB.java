@@ -1,20 +1,12 @@
 package com.nenecorp.kabuelectionboard;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.provider.BaseColumns;
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class KUEB {
     public static Date getDateFromDatePicker(DatePicker datePicker) {
