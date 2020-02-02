@@ -3,6 +3,8 @@ This app serves as a terminal to control the date, time, length and participatio
 
 ## Getting Started
 This project only contains information related to the election board terminal. To access information on the Voters terminal click [here](https://github.com/nenecorporates/Vote).  
+
+
 1.On opening the app, it checks for ongoing elections. If there exists none the user will be presented with a screen to begin preparation.  
 ![image](https://drive.google.com/uc?export=view&id=1wKvzF0tYyT96gOyf9rdRKJo0gfRfWUHq)  
 2. The user will then be required to set the election date, time and the elections duration in hours.  
@@ -29,4 +31,8 @@ This project only contains information related to the election board terminal. T
 ![image](https://drive.google.com/uc?export=view&id=12qocvbimXhRZjCI4hb-EPvzYr33v_y7u)  
 11. To remove a candidate from the ballot paper select the registered candidate.  
 ![image](https://drive.google.com/uc?export=view&id=1MQDmXSnrx7g9HDAjbGg_o-ScS8c8vzQG)  
+12. On the day set for the election at the the time the election is to start. The app begins a countdown timer that runs the election duration.  
+![image](https://drive.google.com/uc?export=view&id=1aTLZwmRsEz2R1a55hPp2zInkT6L-N8nT)  
 
+## Installation 
+Click [here](https://drive.google.com/uc?export=view&id=1vzC9IxRN8cFoPpiMmYAYM7op8rWPojGM) to get the demo apk.
