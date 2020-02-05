@@ -2,7 +2,7 @@
 This app serves as a terminal to control the date, time, length and participation of an election. I would like to note that this version was specifically built for my school.
 
 ## Getting Started
-This project only contains information related to the election board terminal. To access information on the Voters terminal click [here](https://github.com/Mugambi-Ian/Vote).
+This page only contains information related to the election board terminal. To access information on the Voters terminal click [here](https://github.com/Mugambi-Ian/Vote).
 
 1.On opening the app, it checks for ongoing elections. If there exists none the user will be presented with a screen to begin preparation.  
 ![image](https://github.com/Mugambi-Ian/Election-Board/raw/master/ScreenShot/sseb02.jpg)  
